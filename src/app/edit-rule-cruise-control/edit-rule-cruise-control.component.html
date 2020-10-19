@@ -1,0 +1,48 @@
+<table cellspacing="0" cellpadding="0">
+  <tr>
+    <td style="width: 100px">
+    </td>
+    <td style="width: 80px">
+      <mat-form-field [style.width]="'100%'">
+        <input matInput type="number" placeholder="KPI Ceiling" name="kpiMetricValue" [ngModel]="max"
+               (ngModelChange)="onMaxChange($event)">
+        <span matPrefix>{{kpiOptionPrefixMap[metric]}} &nbsp;</span>
+        <span matSuffix="">{{kpiOptionSuffixMap[metric]}} &nbsp;</span>
+      </mat-form-field>
+    </td>
+    <td>
+      <app-edit-rule-action [channel]="channel" [action]="tasks[0].actions[0]"></app-edit-rule-action>
+    </td>
+  </tr>
+  <tr style="max-height: 80px">
+    <td style="width: 100px">
+      <mat-form-field>
+        <mat-select placeholder="KPI" [ngModel]="metric" (ngModelChange)="onMetricChange($event)" name="kpiMetric">
+          <mat-option *ngFor="let kpi of kpiOptions" [value]="kpi.value">
+            {{ kpi.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <!--<td style="width: 80px">-->
+    <!--</td>-->
+    <!--<td>-->
+      <!--<app-edit-rule-action [action]="tasks[1].actions[0]"></app-edit-rule-action>-->
+    <!--</td>-->
+  </tr>
+  <tr>
+    <td style="width: 100px">
+    </td>
+    <td style="width: 80px">
+      <mat-form-field [style.width]="'100%'">
+        <input matInput type="number" placeholder="KPI Floor" name="kpiMetricValue" [ngModel]="min"
+               (ngModelChange)="onMinChange($event)">
+        <span matPrefix>{{kpiOptionPrefixMap[metric]}} &nbsp;</span>
+        <span matSuffix="">{{kpiOptionSuffixMap[metric]}} &nbsp;</span>
+      </mat-form-field>
+    </td>
+    <td>
+      <app-edit-rule-action [channel]="channel" [action]="tasks[2].actions[0]"></app-edit-rule-action>
+    </td>
+  </tr>
+</table>

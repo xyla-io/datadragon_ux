@@ -1,0 +1,29 @@
+<table cellspacing="0" cellpadding="0" style="padding-top: -10px">
+  <tr>
+    <td>
+      <mat-form-field>
+        <mat-select placeholder="KPI" [(ngModel)]="condition.metric" name="kpiMetric">
+          <mat-option *ngFor="let kpi of kpiOptions" [value]="kpi.value">
+            {{ kpi.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td style="width: 120px">
+      <mat-form-field>
+        <mat-select placeholder="Conditional" [(ngModel)]="condition.operator" name="conditionalOperator" [style.width]="'100%'">
+          <mat-option *ngFor="let option of conditionalOptions" [value]="option.value">
+            {{ option.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td style="width: 100px">
+      <mat-form-field [style.width]="'100%'">
+        <input matInput type="number" placeholder="Value" [(ngModel)]="condition.metricValue" name="kpiMetricValue">
+        <span matPrefix>{{kpiOptionPrefixMap[condition.metric]}} &nbsp;</span>
+        <span matSuffix="">{{kpiOptionSuffixMap[condition.metric]}} &nbsp;</span>
+      </mat-form-field>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,25 @@
+<h3>
+  {{ this.dialogTitle }}
+</h3>
+<p>
+  {{ this.dialogSubtitle }}
+</p>
+<table>
+  <td>
+    <button *ngIf="actionButtonTitle !== undefined"
+            mat-button
+            (click)="cancelClicked()">{{ cancelButtonTitle }}</button>
+    <button *ngIf="actionButtonTitle === undefined"
+            mat-raised-button
+            color="accent"
+            (click)="cancelClicked()">{{ cancelButtonTitle }}</button>
+    <button mat-raised-button
+            *ngIf="actionButtonTitle !== undefined && dialogType === ConfirmationDialogType.Destructive"
+            color="warn"
+            (click)="primaryClicked()">{{ actionButtonTitle }}</button>
+    <button mat-raised-button
+            *ngIf="actionButtonTitle !== undefined && dialogType === ConfirmationDialogType.Default"
+            color="accent"
+            (click)="primaryClicked()">{{ actionButtonTitle }}</button>
+  </td>
+</table>

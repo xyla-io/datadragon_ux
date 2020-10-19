@@ -1,0 +1,52 @@
+<table cellspacing="0" cellpadding="10">
+  <tr>
+    <td>
+      <mat-form-field>
+        <mat-select placeholder="Credentials"
+                    [(ngModel)]="reportParameters.credentialID"
+                    (change)="onCredentialIDChange()"
+                    name="credentialID">
+          <mat-option *ngFor="let credential of adjustService.credentials" [value]="credential._id">
+            {{ credential.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-select placeholder="Period"
+                    [(ngModel)]="reportParameters.period"
+                    name="accountIDs">
+          <mat-option *ngFor="let period of periodOptions" [value]="period.value">
+            {{ period.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td [hidden]="// @ts-ignore
+        !showSpinner"
+        class="spinner">
+      <mat-spinner [diameter]="30"
+                   [strokeWidth]="3"></mat-spinner>
+    </td>
+    <td>
+      <mat-form-field>
+        <input matInput
+               [max]="// @ts-ignore
+               startDate"
+               [matDatepicker]="picker"
+               [(ngModel)]="reportParameters.startDate"
+               placeholder="Start Date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </td>
+    <td>
+      <button mat-raised-button
+              (click)="onRunReportClicked()"
+              color="primary">
+        Run Report
+      </button>
+    </td>
+  </tr>
+</table>

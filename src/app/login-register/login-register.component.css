@@ -1,0 +1,9 @@
+.sign-in-up-card {
+  width: 400px;
+}
+
+button.create {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
+}

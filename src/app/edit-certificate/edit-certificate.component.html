@@ -1,0 +1,42 @@
+<form autocomplete="off">
+  <table class="certificate-form-container" cellspacing="0" cellpadding="0">
+    <tr>
+      <td>
+        <mat-form-field>
+          <input matInput
+                 type="text"
+                 placeholder="Account Name"
+                 name="account"
+                 [(ngModel)]="certificateUpdate.name">
+        </mat-form-field>
+      </td>
+      <td>
+        <input #certificateFileInput
+               type="file"
+               accept="application/zip"
+               placeholder="Certificate"
+               name="certificate"
+               hidden
+               (change)="certificateFileChange($event)">
+        <button mat-fab
+                color="primary"
+                (click)="addCertificate()">
+          <mat-icon class="material-icons">file_upload</mat-icon>
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <p [hidden]="certificateUpdate.file === null">File Uploaded: {{ certificateUpdate.file ? certificateUpdate.file.name : "" }}</p>
+    </tr>
+    <tr>
+      <td>
+        <button mat-button (click)="cancel()">Cancel</button>
+        <button
+          mat-raised-button color="primary"
+                [disabled]="certificateUpdate.name.length === 0 || certificateUpdate.file === null"
+                class="create"
+                (click)="save()">Save</button>
+      </td>
+    </tr>
+  </table>
+</form>

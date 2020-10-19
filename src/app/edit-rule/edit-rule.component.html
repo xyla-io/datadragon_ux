@@ -1,0 +1,231 @@
+<div>
+  <mat-tab-group dynamicHeight="true" [(selectedIndex)]="selectedTabIndex">
+    <mat-tab label="Simple">
+    </mat-tab>
+    <mat-tab label="Cruise Control">
+    </mat-tab>
+  </mat-tab-group>
+  <form>
+      <table class="rule-form-container" cellspacing="0" cellpadding="0">
+        <tr>
+          <td>
+            <mat-form-field style="width: 100%">
+              <input matInput [style.width]="'100%'"
+                     [(ngModel)]="rule.metadata.title"
+                     name="title"
+                     placeholder="Rule Title">
+            </mat-form-field>
+          </td>
+          <td style="width: 180px">
+            <mat-form-field>
+              <mat-select placeholder="Channel"
+                          [(ngModel)]="rule.channel"
+                          name="channel"
+                          (change)="onChannelChange()">
+                <mat-option *ngFor="let channel of channelOptions" [value]="channel.identifier">
+                  {{ channel.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+          <!-- <td style="width: 180px"> -->
+          <!--   <mat-form-field> -->
+          <!--     <mat-select placeholder="Adjust MMP" -->
+          <!--                 [(ngModel)]="rule.adjustCredential" -->
+          <!--                 name="adjust" -->
+          <!--                 (change)="onAdjustCredentialsChange()"> -->
+          <!--       <mat-option *ngFor="let credential of adjustService.credentials" [value]="credential"> -->
+          <!--         {{ credential.name }} -->
+          <!--       </mat-option> -->
+          <!--     </mat-select> -->
+          <!--   </mat-form-field> -->
+          <!-- </td> -->
+          <td style="width: 180px">
+            <mat-form-field>
+              <mat-select placeholder="Account"
+                          [(ngModel)]="rule.account"
+                          name="account" [style.width]="'100%'"
+                          (change)="onAccountChange()">
+                <mat-option *ngFor="let credential of credentials" [value]="credential.path">
+                  {{ credential.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td [hidden]="rule.campaignID === null" colspan="3">
+            <mat-form-field *ngIf="rule.campaignID && !campaignOptions.length; else campaignOptionsAvailable"
+              [style.width]="'100%'"
+              >
+              <input
+                matInput 
+                [value]="rule.metadata.campaignName"
+                disabled="true"
+                placeholder="Campaign"
+                />
+            </mat-form-field>
+            <ng-template #campaignOptionsAvailable>
+              <app-filterable-dropdown
+                [placeholder]="'Campaign'"
+                [selectedValue]="rule.campaignID"
+                [options]="campaignOptions"
+                [optionBadgeDataByKey]="storedRulesByCampaign"
+                (optionSelected)="onCampaignChange($event)"
+                >
+              </app-filterable-dropdown>
+            </ng-template>
+          </td>
+          <td [hidden]="!!adgroupOptions.length" style="width: 30px">
+            <mat-spinner [diameter]="30" [strokeWidth]="3"></mat-spinner>
+          </td>
+          <td [hidden]="!adgroupOptions.length">
+            <div class="active-rules-badge">
+              {{storedRulesByCampaign[rule.campaignID] || 'No'}} Active Rule{{storedRulesByCampaign[rule.campaignID] === 1 ? '' : 's'}}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3"
+            [style.visibility]="rule.channel === 'apple_search_ads' ? 'visible' : 'hidden'"
+            >
+            <mat-form-field *ngIf="rule.adgroupID && !adgroupOptions.length; else adgroupOptionsAvailable"
+              [style.width]="'100%'"
+              >
+              <input 
+                matInput
+                [value]="rule.metadata.adGroupName"
+                disabled="true"
+                placeholder="Ad Group"
+                />
+            </mat-form-field>
+            <ng-template #adgroupOptionsAvailable>
+              <app-filterable-dropdown
+                [placeholder]="'Ad Group'"
+                [selectedValue]="rule.adgroupID"
+                [options]="adgroupOptions"
+                (optionSelected)="onAdgroupChange($event)"
+                >
+              </app-filterable-dropdown>
+            </ng-template>
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 120px">
+            <mat-form-field>
+              <mat-select placeholder="Rule Frequency" [(ngModel)]="rule.runInterval" name="runInterval"
+                          [style.width]="'100%'">
+                <mat-option *ngFor="let interval of runIntervals" [value]="interval.value">
+                  {{ interval.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+          <td style="width: 120px" hidden="hidden">
+            <mat-select placeholder="Granularity" [(ngModel)]="rule.granularity" name="granularity"
+                       [style.width]="'100%'">
+              <mat-option *ngFor="let granularity of granularityOptions" [value]="granularity.value">
+                {{ granularity.viewValue }}
+              </mat-option>
+            </mat-select>
+          </td>
+          <td style="width: 120px">
+            <mat-form-field>
+              <mat-select placeholder="Look-back Range"
+                          [(ngModel)]="rule.dataCheckRange"
+                          name="dataCheckRange"
+                          [style.width]="'100%'">
+                <mat-option *ngFor="let range of rangeOptions" [value]="range.value">
+                  {{ range.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+          <td style="width: 100px" hidden="true">
+            <mat-form-field [style.width]="'100%'">
+              <input matInput type="number" placeholder="Range" [(ngModel)]="rule.numberOfDays" name="numberOfDays">
+              <span matSuffix>days</span>
+            </mat-form-field>
+          </td>
+          <td style="width: 100px">
+            <mat-form-field>
+              <mat-select placeholder="Condition"
+                          [(ngModel)]="simpleTasks[0].conditionGroup.operator"
+                          name="conditionGroupOperator"
+                          [style.width]="'100%'"
+                          [disabled]="simpleTasks[0].conditionGroup.conditions.length <= 1">
+                <mat-option *ngFor="let operator of conditionGroupOperatorOptions" [value]="operator.value">
+                  {{ operator.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+    <table cellspacing="0" cellpadding="0" *ngIf="ruleType === EditRuleType.Simple">
+      <tr *ngFor="let condition of simpleTasks[0].conditionGroup.conditions; let i = index">
+        <td>
+          <app-edit-rule-condition 
+            [condition]="condition"
+            [channel]="rule.channel">
+          </app-edit-rule-condition>
+        </td>
+        <td>
+          <button mat-mini-fab
+                  [disabled]="simpleTasks[0].conditionGroup.conditions.length <= 1"
+                  color="warn"
+                  (click)="removeSimpleCondition(i)">
+            <mat-icon>remove</mat-icon>
+          </button>
+          <button mat-mini-fab
+                  color="accent"
+                  (click)="addSimpleCondition(i)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </td>
+      </tr>
+      <tr>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <app-edit-rule-action [channel]="rule.channel" [action]="rule.tasks[0].actions[0]"></app-edit-rule-action>
+        </td>
+      </tr>
+    </table>
+    <app-edit-rule-cruise-control [channel]="rule.channel" [tasks]="cruiseControlTasks" *ngIf="ruleType === EditRuleType.CruiseControl"></app-edit-rule-cruise-control>
+    <table>
+        <td>
+          <mat-checkbox [checked]="!rule.shouldPerformAction"
+                       class="perform-action-checkbox"
+                       (change)="rule.shouldPerformAction = !$event.checked">Dry Run</mat-checkbox>
+          <mat-checkbox [(ngModel)]="rule.shouldSendEmail"
+                       name="shouldSendEmail"
+                       class="send-email-checkbox">Send Email</mat-checkbox>
+          <mat-checkbox [(ngModel)]="rule.shouldMonitor"
+                       name="shouldMonitor"
+                       class="monitor-checkbox">Debug</mat-checkbox>
+          <mat-checkbox [checked]="rule.safeMode"
+                       class="safe-mode-checkbox"
+                       (change)="rule.safeMode = $event.checked"
+                       matTooltip="UAC best practices do not make adjustments until a campaign has either: &#13;- 1 day of data &#13;- OR 100 total conversions &#13;- OR 10 selected conversions since the last adjustment by any of the user's rules (or since the campaign was enabled)&#13;&#13;Net target CPA adjustments will also be limited to 20% within 24 hours."
+                       [style.visibility]="rule.channel === 'google_ads' ? 'visible' : 'hidden'"><span>Use UAC best practices</span> <mat-icon [style.visibility]="rule.safeMode ? 'hidden' : 'visible'">warning</mat-icon></mat-checkbox>
+          <mat-checkbox name="shouldContinueEditing"
+                       *ngIf="allowsSerialEditing"
+                       [(ngModel)]="shouldContinueEditing"
+                       class="send-email-checkbox">Create Another Rule</mat-checkbox>
+          <button mat-button (click)="cancel()">Cancel</button>
+          <button mat-raised-button color="primary"
+                  [disabled]="!rule.campaignID || !rule.adgroupID"
+                  class="create"
+                  (click)="save()">Save</button>
+        </td>
+      </table>
+      <table *ngIf="rule.channel !== 'apple_search_ads'">
+        <td>
+          <mat-checkbox [checked]="rule.options.dynamic_window" class="perform-action-checkbox"
+            (change)="rule.options.dynamic_window = $event.checked">Use Dynamic Look-back
+          </mat-checkbox>
+        </td>
+      </table>
+    </form>
+</div>

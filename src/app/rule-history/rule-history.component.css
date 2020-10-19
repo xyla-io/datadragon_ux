@@ -1,0 +1,22 @@
+.mat-column-historyCreationDate {
+  flex: 0 0 150px;
+  text-align: left;
+  padding-right: 6px;
+  font-size: 12px;
+}
+
+.mat-column-lastDataCheckedDate {
+  flex: 0 0 150px;
+  text-align: left;
+  font-size: 12px;
+}
+
+.mat-column-description {
+  font-size: 12px;
+}
+
+.no-history {
+  text-align: left;
+  color: rgba(0,0,0,0.54);
+  font-size: 12px;
+}

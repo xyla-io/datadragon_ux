@@ -1,0 +1,37 @@
+<table cellspacing="0" cellpadding="0">
+  <tr>
+    <td style="width: 120px">
+      <mat-form-field [style.width]="'100%'">
+        <mat-select placeholder="Action" [(ngModel)]="action.action" name="conditional" [style.width]="'100%'">
+          <mat-option *ngFor="let action of actions" [value]="action.value">
+            {{ action.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td style="width: 100px" [hidden]="['no_action', 'pause_keyword', 'pause_campaign'].includes(action.action)">
+      <mat-form-field [style.width]="'100%'">
+        <input placeholder="Adjustment"
+               matInput type="number"
+               [(ngModel)]="action.adjustmentValue"
+               name="actionAdjustmentValue">
+        <span matSuffix>%</span>
+      </mat-form-field>
+    </td>
+    <td style="width: 100px" [hidden]="['no_action', 'pause_keyword', 'pause_campaign'].includes(action.action)">
+      <mat-form-field [style.width]="'100%'">
+        <input placeholder="Limit"
+               matInput
+               type="number"
+               [formControl]="adjustmentLimitFormControl"
+               [errorStateMatcher]="matcher"
+               [(ngModel)]="action.adjustmentLimit"
+               name="actionAdjustmentLimit">
+        <mat-error *ngIf="adjustmentLimitFormControl.hasError('required')">
+          Enter a limit
+        </mat-error>
+        <span matPrefix>$ &nbsp;</span>
+      </mat-form-field>
+    </td>
+  </tr>
+</table>

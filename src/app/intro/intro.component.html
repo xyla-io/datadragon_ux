@@ -1,0 +1,14 @@
+<h1>Intro to DataDragon</h1>
+<div #videocontainer><youtube-player width="640" height="360" [videoId]="id" (ready)="savePlayer($event)"
+                             (change)="onStateChange($event)"></youtube-player>
+</div>
+<table>
+  <tr>
+    <td *ngFor="let time of times">
+      <button mat-raised-button (click)="playVideo(time.timestart, time.timeend)" color="primary">
+      {{time.name}}
+      </button>
+    </td>
+  </tr>
+</table>
+

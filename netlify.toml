@@ -1,0 +1,19 @@
+[build]
+  publish = "dist/"
+  command = "npm run build"
+
+[context.datadragon-staging]
+  command = "npm run build -- --env=stage"
+
+[context.datadragon]
+  command = "npm run build -- --env=prod"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Basic-Auth = "DATADRGONUSER:EXAMPLEPASS79prDwMiRfBKeCJDeie6WAJVjhvEtVhmEKGrR"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -1,0 +1,61 @@
+<div class="example-container mat-elevation-z4" style="max-width: 1200px">
+
+  <table class="report-metadata">
+    <tr>
+      <td class="result-filter-header">
+        <mat-form-field floatPlaceholder="never" [style.width]="'100%'">
+          <input #filter
+                 matInput
+                 [ngModel]="_filterChange.value"
+                 (ngModelChange)="onFilterChange($event)"
+                 placeholder="Filter Results">
+        </mat-form-field>
+      </td>
+      <td class="report-root-term">
+        {{ rootTerm }}
+      </td>
+      <td class="report-progress" *ngIf="rootTerm !== '' && progress < 1.0">
+        <mat-progress-bar mode="determinate" [value]="progress * 100"></mat-progress-bar>
+      </td>
+    </tr>
+  </table>
+
+  <mat-table #table [dataSource]="this" matSort matSortActive="priority" matSortDirection="desc">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <ng-container matColumnDef="search">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Search Term </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{result.search}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="term">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Autocomplete </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{result.term}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="priority">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Priority </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{result.priority}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="popularity">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Popularity </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{result.popularity}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="iPhoneRank">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> iPhone Rank </mat-header-cell>i
+      <mat-cell *matCellDef="let result"> {{result.iPhoneRank}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="iPadRank">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> iPad Rank </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{result.iPadRank}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

@@ -1,0 +1,51 @@
+<form class="signup-form">
+  <table cellspacing="0" cellpadding="4" class="full-width">
+    <tr>
+      <td>
+        <mat-form-field class="input-field">
+          <input matInput type="text"
+                 placeholder="Name"
+                 name="name"
+                 [(ngModel)]="signupData.name">
+          <mat-icon matSuffix class="material-icons">person</mat-icon>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field class="input-field">
+          <input matInput type="email"
+                 placeholder="Email"
+                 name="email"
+                 [(ngModel)]="signupData.email">
+          <mat-icon matSuffix class="material-icons">email</mat-icon>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field class="input-field">
+          <input type="password" matInput
+                 placeholder="Password"
+                 [type]="hidePassword ? 'password' : 'text'"
+                 name="password"
+                 [(ngModel)]="signupData.password">
+          <mat-icon matSuffix class="material-icons" (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field class="input-field">
+          <input type="password" matInput
+                 placeholder="Confirm password"
+                 [type]="hideConfirmedPassword ? 'password' : 'text'"
+                 name="confirmedPassword"
+                 [(ngModel)]="signupData.confirmedPassword">
+          <mat-icon matSuffix class="material-icons" (click)="hideConfirmedPassword = !hideConfirmedPassword">{{hideConfirmedPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+</form>
+

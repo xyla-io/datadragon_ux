@@ -1,0 +1,12 @@
+# Dependencies
+/node_modules/
+
+# SSL Certificates
+/ssl/*
+!/ssl/README.md
+
+# Build Products
+/dist
+
+# System Files
+.DS_Store

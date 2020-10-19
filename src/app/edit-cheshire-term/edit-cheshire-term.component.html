@@ -1,0 +1,57 @@
+<table cellspacing="4" cellpadding="4">
+  <tr>
+    <td width="360px">
+      <mat-form-field [style.width]="'100%'">
+        <input matInput
+               [(ngModel)]="reportParameters.rootTerm"
+               name="rootTerm"
+               placeholder="Root Term">
+      </mat-form-field>
+    </td>
+    <td width="100px">
+      <mat-form-field [style.width]="'100%'">
+        <input matInput
+               [(ngModel)]="reportParameters.priorityThreshold"
+               name="priorityThreshold"
+               type="number"
+               placeholder="Priority Threshold">
+      </mat-form-field>
+    </td>
+    <td width="100px">
+      <mat-form-field [style.width]="'100%'">
+        <input matInput
+               [(ngModel)]="reportParameters.appId"
+               name="app"
+               type="number"
+               placeholder="App ID">
+      </mat-form-field>
+    </td>
+    <!--<td style="width: 240px">-->
+      <!--<mat-form-field [style.width]="'100%'">-->
+        <!--<mat-select placeholder="App"-->
+                    <!--[(ngModel)]="reportParameters.appId"-->
+                    <!--name="app">-->
+          <!--<mat-option *ngFor="let app of apps" [value]="app.appId">-->
+            <!--{{ app.appName }}-->
+          <!--</mat-option>-->
+        <!--</mat-select>-->
+      <!--</mat-form-field>-->
+    <!--</td>-->
+
+    <td *ngIf="!isSearching">
+      <button mat-fab
+              color="primary"
+              [disabled]="reportParameters.rootTerm.length === 0"
+              (click)="onSearch()">
+        <mat-icon class="material-icons">youtube_searched_for</mat-icon>
+      </button>
+    </td>
+    <td *ngIf="isSearching">
+      <button mat-fab
+              color="warn"
+              (click)="onCancelSearch()">
+        <mat-icon class="material-icons">stop</mat-icon>
+      </button>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,14 @@
+<app-notifications-list
+  (editRuleEmitter)="onEditRule($event)"
+  (showHistoryEmitter)="onShowHistory($event)"
+  >
+</app-notifications-list>
+<h1>Rules!</h1>
+<app-rules-list
+  (editRuleEmitter)="onEditRule($event)"
+  (addRuleEmitter)="onAddRule($event)"
+  (showImpactEmitter)="onShowImpact($event)"
+  (showHistoryEmitter)="onShowHistory($event)"
+  (deleteRuleEmitter)="onDeleteRule($event)"
+  >
+</app-rules-list>

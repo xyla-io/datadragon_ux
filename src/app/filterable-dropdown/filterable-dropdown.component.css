@@ -1,0 +1,15 @@
+.option-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.option-badge {
+  border-radius: 15px;
+  background-color: #f0f0f0;
+  font-size: 12px;
+  height: 24px;
+  line-height: 2;
+  padding-left: 10px;
+  padding-right: 10px;
+}

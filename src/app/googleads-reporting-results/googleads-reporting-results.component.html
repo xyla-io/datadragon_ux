@@ -1,0 +1,108 @@
+<div class="example-container mat-elevation-z4" style="max-width: 1200px">
+  <table class="report-metadata">
+    <tr>
+      <td class="result-filter-header">
+        <mat-form-field floatPlaceholder="never" [style.width]="'100%'">
+          <input #filter
+                 matInput
+                 [ngModel]="_filterChange.value"
+                 (ngModelChange)="onFilterChange($event)"
+                 placeholder="Filter Results">
+        </mat-form-field>
+      </td>
+      <td>
+        <h3>{{ campaignNames }}</h3>
+      </td>
+      <td>
+        <p style="text-align: left">{{ _prettyReportName(report.reportType) }} Report</p>
+      </td>
+      <td>
+        <p class="report-parameters">{{ report.startDate | date:'MMM d, y H:mm':'UTC' }} to {{ report.endDate | date:'MMM d, y H:mm':'UTC' }}</p>
+      </td>
+      <td style="text-align: right">
+        <button mat-fab
+                [disabled]="report.rows.length === 0"
+                (click)="onDownloadCSV()"
+                color="primary">
+          <mat-icon class="material-icons">file_download</mat-icon>
+        </button>
+      </td>
+    </tr>
+  </table>
+
+  <mat-table #table [dataSource]="this" matSort matSortActive="Clicks" matSortDirection="desc" matSortStart="desc">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!--<ng-container matColumnDef="campaignName">-->
+      <!--<mat-header-cell *matHeaderCellDef mat-sort-header> Campaign </mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let result"> {{result.campaignName}} </mat-cell>-->
+    <!--</ng-container>-->
+
+    <!--<ng-container matColumnDef="adGroupName">-->
+      <!--<mat-header-cell *matHeaderCellDef mat-sort-header> Ad Group </mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let result"> {{result.adGroupName}} </mat-cell>-->
+    <!--</ng-container>-->
+
+    <ng-container matColumnDef="Campaign">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start="asc"> Campaign </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{result.Campaign}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Ad group">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start="asc"> Ad Group </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{result['Ad group']}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Campaign ID">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Campaign ID </mat-header-cell>
+    <mat-cell *matCellDef="let result"> {{result['Campaign ID']}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Ad group ID">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Ad Group ID </mat-header-cell>
+    <mat-cell *matCellDef="let result"> {{result['Ad group ID']}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Impressions">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Impressions </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{result.Impressions}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Clicks">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Clicks </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{result.Clicks}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Conversions">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Conversions </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{result.Conversions}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Cost">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Cost </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{result.Cost}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Target CPA">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Target CPA </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{result['Target CPA']}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Day">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
+      <mat-cell *matCellDef="let result"> {{result.Day}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator #paginator
+                 [showFirstLastButtons]="true"
+                 [length]="resultsDataChange.value.length"
+                 [pageIndex]="0"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+</div>

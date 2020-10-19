@@ -1,0 +1,24 @@
+<div class="example-container mat-elevation-z4" style="max-width: 1200px">
+  <table>
+    <tr>
+      <td class="report-name">
+        {{ report.name }}
+      </td>
+      <td class="report-description">
+        {{ report.startDateDescription }} to {{ report.runDateDescription }}
+      </td>
+      <td [hidden]="!(report.rows && report.rows.length > 0)"
+          class="download">
+        <button mat-fab
+                (click)="onDownloadCSV()"
+                color="primary">
+          <mat-icon class="material-icons">file_download</mat-icon>
+        </button>
+      </td>
+    </tr>
+  </table>
+  <div *ngIf="report.rows && report.rows.length > 0"
+       class="rows">
+    <textarea disabled="true" [ngModel]="report.rows"></textarea>
+  </div>
+</div>

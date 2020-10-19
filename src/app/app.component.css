@@ -1,0 +1,58 @@
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.side-nav-container {
+  /*position: fixed;*/
+  height: 100%;
+  min-height: 100%;
+  width: 100%;
+  min-width: 100%;
+}
+
+.router-outlet-container {
+  margin: 24px;
+  min-height: 360px;
+  padding: 36px;
+  padding-left: 64px;
+}
+
+.side-nav-drawer h3 {
+  border: none;
+  font-size: 10px;
+  letter-spacing: 1px;
+  line-height: 24px;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0 16px;
+  background: rgba(0,0,0,.05);
+  color: rgba(0,0,0,.54);
+}
+
+.side-nav-drawer mat-nav-list>a {
+  box-sizing: border-box;
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 36px;
+  text-decoration: none;
+  transition: all .3s;
+  position: relative;
+  color: rgba(0,0,0,.54);
+}
+
+footer {
+  background-color: #3F51B8;
+  color: rgba(255,255,255,.87);
+  font-weight: lighter;
+  padding: 24px;
+}
+
+footer a {
+  color: rgba(255,255,255,.87);
+  text-decoration: none;
+}
+
+.delete-account {
+  color: red;
+}

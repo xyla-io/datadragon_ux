@@ -1,0 +1,84 @@
+<table cellspacing="4" cellpadding="4">
+  <tr>
+    <td style="width: 240px">
+      <mat-form-field [style.width]="'100%'">
+        <mat-select placeholder="Account"
+                    [ngModel]="itunesConnectService.state.selectedProviderId"
+                    (ngModelChange)="onProviderChange($event)"
+                    name="provider">
+          <mat-option *ngFor="let provider of itunesConnectService.state.providers" [value]="provider.providerId">
+            {{ provider.providerName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td [hidden]="itunesConnectService.state.providers.length > 0" style="width: 30px">
+      <mat-spinner [diameter]="30" [strokeWidth]="3"></mat-spinner>
+    </td>
+    <td style="width: 240px">
+      <mat-form-field [style.width]="'100%'">
+        <mat-select placeholder="App"
+                    [(ngModel)]="selectedAppId"
+                    name="app">
+          <mat-option *ngFor="let app of itunesConnectService.state.apps" [value]="app.adamId">
+            {{ app.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td [hidden]="itunesConnectService.state.apps.length > 0" style="width:
+    30px">
+      <mat-spinner [diameter]="30" [strokeWidth]="3"></mat-spinner>
+    </td>
+    <td>
+      <button mat-fab
+              [disabled]="selectedAppId === null"
+              (click)="onPlayButtonClicked()"
+              color="primary">
+        <mat-icon class="material-icons">play_circle_outline</mat-icon>
+      </button>
+    </td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <input placeholder="Days Forward"
+               matInput type="number"
+               name="daysForward">
+        <span matSuffix>Days</span>
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <input placeholder="Days Backward"
+               matInput type="number"
+               name="daysBackward">
+        <span matSuffix>Days</span>
+      </mat-form-field>
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 240px">
+      <mat-form-field [style.width]="'100%'">
+        <mat-select placeholder="Regions"
+                    name="regions"
+                    [(ngModel)]="selectedRegions"
+                    [disabled]="availableRegions.length === 0"
+                    (ngModelChange)="onRegionSelectionChanged($event)" multiple>
+          <mat-option *ngFor="let region of availableRegions" [value]="region">
+            {{ region }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </tr>
+</table>

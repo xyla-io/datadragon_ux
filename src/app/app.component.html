@@ -1,0 +1,55 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <mat-toolbar color="primary">
+    <span>DataDragon</span>
+    <span class="fill-remaining-space"></span>
+    <button *ngIf="isSignedIn" mat-icon-button [matMenuTriggerFor]="appMenu">
+      <mat-icon>blur_on</mat-icon>
+    </button>
+    <mat-menu #appMenu="matMenu" xPosition="before" [overlapTrigger]="false">
+      <button mat-menu-item
+              *ngIf="isSignedIn"
+              (click)="signOut()">
+        <mat-icon>exit_to_app</mat-icon> Sign Out
+      </button>
+      <button mat-menu-item
+              class="delete-account"
+              *ngIf="isSignedIn"
+              (click)="deleteAccount()">
+        <mat-icon class="delete-account">delete_forever</mat-icon> Delete Account
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="side-nav-container">
+    <mat-sidenav class="side-nav-drawer mat-elevation-z8" mode="side" opened="true" disableClose="true">
+      <mat-nav-list *ngIf="!isSignedIn">
+        <a routerLink="login-register" routerLinkActive="active" mat-list-item>Register</a>
+      </mat-nav-list>
+      <mat-nav-list *ngIf="isSignedIn">
+        <h3 class="side-nav-header">Automation</h3>
+        <a routerLink="searchads/intro" routerLinkActive="active" mat-list-item>Intro</a>
+        <a routerLink="searchads/rules" routerLinkActive="active" mat-list-item>Rules</a>
+        <h3 class="side-nav-header">Credentials</h3>
+        <a routerLink="credentials/apple" routerLinkActive="active" mat-list-item>Apple</a>
+        <a routerLink="credentials/google" routerLinkActive="active" mat-list-item>Google</a>
+        <a routerLink="credentials/snapchat" routerLinkActive="active" mat-list-item>Snapchat</a>
+        <!-- <h3 class="side-nav-header">Search Ads</h3>
+        <a routerLink="searchads/reporting" routerLinkActive="active" mat-list-item>Reporting</a>
+        <h3 class="side-nav-header">AdWords</h3>
+        <a routerLink="adwords/reporting" routerLinkActive="active" mat-list-item>Reporting</a>
+        <h3 class="side-nav-header">Adjust</h3>
+        <a routerLink="adjust/credentials" routerLinkActive="active" mat-list-item>Credentials</a>
+        <a routerLink="adjust/revenue" routerLinkActive="active" mat-list-item>Revenue Report</a>
+        <h3 class="side-nav-header">Cheshire</h3>
+        <a routerLink="cheshire/terms" routerLinkActive="active" mat-list-item>Search Terms</a>
+        <a routerLink="cheshire/analytics" routerLinkActive="active" mat-list-item>Analytics</a> -->
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <div class="router-outlet-container">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-container>
+  <footer><a href="COMPANYURL"><img src="assets/logo.png"/> </a></footer>
+</div>

@@ -1,0 +1,33 @@
+<mat-form-field [style.width]="'100%'">
+  <mat-select
+    [formControl]="optionsCtrl"
+    [placeholder]="placeholder"
+    (selectionChange)="onSelectionChange($event)"
+    (openedChange)="onOpenedChanged($event)"
+    disableRipple="true"
+    #singleSelect
+    >
+    <mat-option>
+      <ngx-mat-select-search
+        [formControl]="filterCtrl"
+        placeholderLabel="Search"
+        noEntriesFoundLabel="None found"
+        >
+      </ngx-mat-select-search>
+    </mat-option>
+    <mat-option
+      *ngFor="let option of filteredOptions | async"
+      [value]="option"
+      [matTooltip]="option[displayProperty]"
+      >
+      <div class="option-container">
+        <div>{{ option[displayProperty] }}</div>
+        <div *ngIf="dropdownIsOpen && optionBadgeDataByKey[option[valueProperty]]">
+          <div class="option-badge">
+            {{optionBadgeDataByKey[option[valueProperty]]}} Active Rule{{optionBadgeDataByKey[option[valueProperty]] === 1 ? '' : 's'}}
+          </div>
+        </div>
+      </div>
+    </mat-option>
+  </mat-select>
+</mat-form-field>

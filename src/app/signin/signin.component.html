@@ -1,0 +1,28 @@
+<form class="signin-form">
+  <table cellspacing="0" cellpadding="4" class="full-width">
+    <tr>
+      <td>
+        <mat-form-field class="input-field">
+          <input matInput type="email"
+                 placeholder="Email"
+                 name="email"
+                 [(ngModel)]="signInData.email">
+          <mat-icon matSuffix class="material-icons">email</mat-icon>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr *ngIf="showsPasswordField">
+      <td>
+        <mat-form-field class="input-field">
+          <input type="password" matInput
+                 placeholder="Password"
+                 [type]="hidePassword ? 'password' : 'text'"
+                 name="password"
+                 [(ngModel)]="signInData.password">
+          <mat-icon matSuffix class="material-icons" (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+</form>
+

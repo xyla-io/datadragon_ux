@@ -1,0 +1,25 @@
+
+<table cellspacing="4" cellpadding="4">
+  <tr>
+    <td>
+      <h3>Upload Apple Search Ads API Certificates</h3>
+    </td>
+    <td>
+      <input #certificateFileInput
+             type="file"
+             accept="application/zip"
+             placeholder="Certificate"
+             name="certificate"
+             hidden>
+      <button mat-fab
+              color="primary"
+              (click)="onAddCertificate()">
+        <mat-icon class="material-icons">add_icon</mat-icon>
+      </button>
+    </td>
+  </tr>
+</table>
+<p>
+  <app-certificates-list></app-certificates-list>
+  <app-hourly-report-export [credentialTarget]="'apple_search_ads'"></app-hourly-report-export>
+</p>

@@ -1,0 +1,36 @@
+.mat-column-messages {
+  flex: 0 0 70% !important;
+}
+.mat-column-messages:not(.mat-header-cell) {
+  text-align: left;
+  color: indianred;
+  font-size: 12px;
+  padding: 6px;
+}
+
+.mat-column-date {
+  font-size: 12px;
+  flex: 0 0 18% !important;
+  text-align: right;
+}
+
+.mat-column-messages:not(.mat-header-cell) .mat-icon {
+  margin-right: 6px;
+  float: left;
+}
+
+.mat-table {
+  max-height: 300px;
+  overflow: auto;
+}
+
+.new-notification-badge {
+  font-size: 10px;
+  background-color: indianred;
+  color: white;
+  border-radius: 2px;
+  margin-right: 8px;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 1px;
+}

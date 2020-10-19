@@ -1,0 +1,49 @@
+<form>
+  <h4>Hourly Data Export</h4>
+  <table class="rule-form-container" cellspacing="0" cellpadding="0">
+    <tr>
+      <td style="width: 220px">
+        <mat-form-field>
+          <mat-select placeholder="Account"
+                      [(ngModel)]="selectedCredential.path"
+                      name="account" [style.width]="'100%'">
+            <mat-option *ngFor="let credential of credentials" [value]="credential.path">
+              {{ credential.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td style="width: 220px">
+        <mat-form-field>
+          <mat-select placeholder="Data Range"
+                      [(ngModel)]="selectedDataRange"
+                      name="data-range" [style.width]="'100%'">
+            <mat-option *ngFor="let range of dataRangeOptions" [value]="range.value">
+              {{ range.displayName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td style="width: 220px">
+        <mat-form-field>
+          <mat-select placeholder="Granularity"
+                      [(ngModel)]="selectedEntityGranularity"
+                      name="granularity" [style.width]="'100%'">
+            <mat-option *ngFor="let granularity of entityGranularityOptions" [value]="granularity.value">
+              {{ granularity.displayName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td>
+        <button mat-raised-button color="primary"
+        [disabled]="!selectedCredential.path || downloading"
+        class="create"
+        (click)="export()">Export</button>
+      </td>
+      <td [hidden]="!downloading" style="width: 30px">
+        <mat-spinner [diameter]="30" [strokeWidth]="3"></mat-spinner>
+      </td>
+    </tr>
+  </table>
+</form>

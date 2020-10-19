@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+html {
+  font-family: 'Roboto', sans-serif;
+  background-color: #3F51B8;
+}
+
+app-rules-list .mat-sort-header-button,
+app-certificates-list .mat-sort-header-button,
+app-searchads-reporting-results .mat-sort-header-button,
+app-adjust-credentials-list .mat-sort-header-button,
+app-cheshire-term-report .mat-sort-header-button,
+app-cheshire-itunesconnect-analytics .mat-sort-header-button {
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-left: auto;
+  margin-right: 3px;
+}
+
+app-rules-list .mat-sort-header-arrow,
+app-certificates-list .mat-sort-header-arrow,
+app-searchads-reporting-results .mat-sort-header-arrow,
+app-adjust-credentials-list .mat-sort-header-arrow,
+app-cheshire-term-report .mat-sort-header-arrow,
+app-cheshire-itunesconnect-analytics .mat-sort-header-arrow {
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-left: 3px;
+  margin-right: auto;
+}
+
+mat-tooltip-component .mat-tooltip {
+  max-width: none !important;
+  white-space: pre-line !important;
+}

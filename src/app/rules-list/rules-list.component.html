@@ -1,0 +1,192 @@
+<div class="example-container mat-elevation-z4">
+
+  <div class="rules-filter-header">
+    <mat-form-field floatPlaceholder="never">
+      <input matInput #filter placeholder="Filter Rules">
+    </mat-form-field>
+
+    <button mat-fab color="primary"
+            class="create"
+            (click)="addRule()">
+      <mat-icon class="material-icons">add</mat-icon>
+    </button>
+  </div>
+
+  <mat-table #table [dataSource]="this" matSort>
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+    <!-- Channel Column -->
+    <ng-container matColumnDef="channel">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Channel </mat-header-cell>
+      <mat-cell *matCellDef="let rule"> {{ rule.channel | displayChannel }} </mat-cell>
+    </ng-container>
+
+    <!-- Account Column -->
+    <ng-container matColumnDef="account">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Account </mat-header-cell>
+      <mat-cell *matCellDef="let rule"> {{rule.metadata.accountName}} </mat-cell>
+    </ng-container>
+
+    <!-- Campaign Column -->
+    <ng-container matColumnDef="campaign">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Campaign </mat-header-cell>
+      <mat-cell *matCellDef="let rule"> {{rule.metadata.campaignName}} </mat-cell>
+    </ng-container>
+
+    <!-- Adgroup Column -->
+    <ng-container matColumnDef="adgroup">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Adgroup </mat-header-cell>
+      <mat-cell *matCellDef="let rule"> {{rule.metadata.adGroupName | adgroupPipe}} </mat-cell>
+    </ng-container>
+
+    <!-- Run Interval Column -->
+    <ng-container matColumnDef="runInterval">
+      <mat-header-cell *matHeaderCellDef> Run Interval </mat-header-cell>
+      <mat-cell *matCellDef="let rule"> {{rule.runInterval | millisecondsPipe}} </mat-cell>
+    </ng-container>
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
+      <mat-cell *matCellDef="let rule"
+                [matTooltip]="[CredentialTargetDisplayName[rule.channel], rule.metadata.description].join(' — ')"> {{rule.metadata.title ? rule.metadata.title : rule.metadata.actionDescription}} </mat-cell>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="actionDescription">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+      <mat-cell *matCellDef="let rule"> {{rule.metadata.actionDescription}} </mat-cell>
+    </ng-container>
+
+    <!-- Interval/Check Column -->
+    <ng-container matColumnDef="intervalCheckColumn">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Interval | Look-back </mat-header-cell>
+      <mat-cell *matCellDef="let rule"> {{rule.runInterval | millisecondsPipe}} | {{rule.dataCheckRange | millisecondsPipe}} </mat-cell>
+    </ng-container>
+
+    <!-- Number of Days Column -->
+    <ng-container matColumnDef="dataCheckRange">
+      <mat-header-cell *matHeaderCellDef> Range </mat-header-cell>
+      <mat-cell *matCellDef="let rule"> {{rule.dataCheckRange | millisecondsPipe}} </mat-cell>
+    </ng-container>
+
+    <!-- History Column -->
+    <ng-container matColumnDef="expansionPanel">
+      <mat-header-cell *matHeaderCellDef> Rule Info
+      </mat-header-cell>
+      <mat-cell  *matCellDef="let rule">
+        <mat-expansion-panel class="mat-elevation-z0"
+                            hideToggle="true"
+                            (opened)="accordionOpened(rule);"
+                            (closed)="accordionClosed(rule);">
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{rule.account}}</mat-panel-title>
+            <mat-panel-description>
+              <span class="description-label">Campaign:</span>{{rule.metadata.campaignName}}
+            </mat-panel-description>
+            <mat-panel-description>
+              <span class="description-label">Adgroup:</span> {{rule.metadata.adGroupName}}
+            </mat-panel-description>
+            <mat-panel-description>
+              <span class="description-label">Interval:</span> {{rule.runInterval | millisecondsPipe}}
+            </mat-panel-description>
+            <mat-panel-description>
+              <span class="description-label">Range:</span>{{rule.dataCheckRange | millisecondsPipe}}
+            </mat-panel-description>
+            <mat-panel-description>
+              <span class="description-label"><strong>{{rule.metadata.actionDescription}}</strong>
+              </span>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <div [hidden]="rule.history !== null">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </div>
+          <app-rule-history *ngIf="rule.history !== null" [history]="rule.history"></app-rule-history>
+        </mat-expansion-panel>
+
+      </mat-cell>
+    </ng-container>
+
+    <!-- Impact Column -->
+    <ng-container matColumnDef="impact">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell  *matCellDef="let rule">
+        <button mat-icon-button (click)="showImpact(rule)">
+          <mat-icon class="material-icons">trending_up</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- History Column -->
+    <ng-container matColumnDef="history">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell  *matCellDef="let rule">
+        <button mat-icon-button (click)="showHistory(rule)">
+          <mat-icon class="material-icons">history</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Edit Column -->
+    <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell  *matCellDef="let rule">
+        <button mat-icon-button (click)="editRule(rule)">
+          <mat-icon class="material-icons">edit</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Clone Column -->
+    <ng-container matColumnDef="clone">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell  *matCellDef="let rule">
+        <button mat-icon-button (click)="cloneRule(rule)">
+          <mat-icon class="material-icons">control_point_duplicate</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Delete Column -->
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell  *matCellDef="let rule">
+        <button mat-icon-button (click)="deleteRule(rule)">
+          <mat-icon class="material-icons">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start="desc"> Email </mat-header-cell>
+      <mat-cell  *matCellDef="let rule">
+        <mat-checkbox [(ngModel)]="rule.shouldSendEmail"
+                     (change)="update({id: rule._id, shouldSendEmail: $event.checked}, rule.modified)"></mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start="desc"> Action </mat-header-cell>
+      <mat-cell  *matCellDef="let rule">
+        <mat-checkbox [(ngModel)]="rule.shouldPerformAction"
+                     (change)="update({id: rule._id, shouldPerformAction: $event.checked}, rule.modified)"></mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Active Column -->
+    <ng-container matColumnDef="active">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start="desc"> Active </mat-header-cell>
+      <mat-cell  *matCellDef="let rule">
+        <mat-slide-toggle [(ngModel)]="rule.isEnabled"
+                         (change)="update({id: rule._id, isEnabled: $event.checked}, rule.modified)">&nbsp;</mat-slide-toggle>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

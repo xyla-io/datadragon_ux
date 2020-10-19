@@ -1,0 +1,98 @@
+<table class="account-campaign-table" cellspacing="0" cellpadding="10">
+  <tr>
+    <td style="width: 180px">
+      <mat-form-field>
+        <mat-select placeholder="Accounts"
+                    multiple="true"
+                    [(ngModel)]="selectedAccountIDs"
+                    name="accountIDs" [style.width]="'100%'"
+                    (change)="onAccountIDsChange()">
+          <mat-option *ngFor="let account of searchadsReportService.accounts" [value]="account.certificate._id">
+            {{ account.certificate.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td style="width: 180px">
+      <mat-form-field>
+        <mat-select placeholder="Campaigns"
+                    multiple="true"
+                    [(ngModel)]="selectedCampaignIDs"
+                    name="campaignIDs"
+                    [style.width]="'100%'"
+                    (change)="onCampaignIDsChange()">
+          <mat-option *ngFor="let campaign of availableCampaigns"
+                      [value]="campaign.id">
+            {{ campaign.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td style="width: 180px">
+      <mat-form-field>
+        <mat-select placeholder="Ad Groups"
+                    multiple="true"
+                    [(ngModel)]="selectedAdGroupIDs"
+                    name="campaignIDs"
+                    [style.width]="'100%'">
+          <mat-option *ngFor="let adGroup of availableAdGroups"
+                      [value]="adGroup.id">
+            {{ adGroup.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td style="width: 180px">
+      <mat-form-field>
+        <mat-select placeholder="Report Type"
+                    [(ngModel)]="reportParameters.reportType"
+                    name="reportType"
+                    [style.width]="'100%'">
+          <mat-option *ngFor="let type of reportTypes"
+                      [value]="type.value">
+            {{ type.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td [hidden]="!showSpinner"
+        style="width: 30px">
+      <mat-spinner [diameter]="30"
+                   [strokeWidth]="3"></mat-spinner>
+    </td>
+  </tr>
+</table>
+<table class="date-selection-table" cellspacing="0" cellpadding="10">
+  <tr>
+    <td>
+      <mat-form-field>
+        <input matInput
+               [max]="maxDate"
+               [matDatepicker]="picker"
+               [(ngModel)]="reportParameters.startDate"
+               placeholder="Start Date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <input matInput
+               [max]="maxDate"
+               [matDatepicker]="picker2"
+               [(ngModel)]="reportParameters.endDate"
+               placeholder="End Date">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+    </td>
+    <td>
+    <button mat-raised-button
+            [disabled]="selectedAdGroupIDs.length === 0"
+            (click)="onRunReportClicked()"
+            color="primary">
+      Run Report
+    </button>
+  </td>
+  </tr>
+</table>

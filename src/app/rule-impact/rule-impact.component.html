@@ -1,0 +1,64 @@
+<div class="rule-metadata">
+  <table>
+    <td>
+      <h2 *ngIf="!!rule.metadata.title">
+        {{ rule.metadata.title }}
+      </h2>
+      <h3>
+        {{ rule.metadata.accountName }}
+      </h3>
+      <h4>
+        {{ rule.metadata.campaignName }} | {{ rule.metadata.adGroupName }}
+      </h4>
+      <p>
+        {{ rule.metadata.actionDescription }}
+      </p>
+      <p *ngIf="totalActions !== null">
+        {{ totalActions }} interventions.
+      </p>
+    </td>
+    <td class="spinner">
+      <div [hidden]="!showsSpinner">
+        <mat-spinner [diameter]="30" [strokeWidth]="3"></mat-spinner>
+      </div>
+    </td>
+  </table>
+</div>
+<div class="impact">
+  <div *ngIf="impactRows !== undefined && impactRows.length > 0">
+    <table>
+      <tr>
+        <th class="metric"></th>
+        <th class="before">{{ beforeInterval }} Before</th>
+        <th class="after">{{ afterInterval }} After</th>
+        <th class="delta">&Delta;</th>
+      </tr>
+      <tr *ngFor="let row of impactRows">
+        <td class="metric">
+          {{ row.name }}
+        </td>
+        <td class="before">
+          {{ row.before | number:row.numberFormat }}
+        </td>
+        <td class="after">
+          {{ row.after | number:row.numberFormat }}
+        </td>
+        <td class="delta"
+            [class.positive]="(row.invertsDeltaColor) ? row.delta < 0 : row.delta > 0"
+            [class.negative]="(row.invertsDeltaColor) ? row.delta > 0 : row.delta < 0">
+          {{ row.delta | number:row.numberFormat }}
+        </td>
+      </tr>
+    </table>
+    <div class="download">
+      <button mat-fab
+              (click)="onDownloadCSV()"
+              color="primary">
+        <mat-icon class="material-icons">file_download</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="no-data" *ngIf="impactRows !== undefined && impactRows.length === 0">This rule has not been running long enough to view its impact.<br>You will be able to view a rule's impact two days after creating it.</div>
+  <div class="graph" #graph [hidden]="impactRows === undefined || impactRows.length === 0" class="graph"></div>
+  <div class="report-title">Impact Report</div>
+</div>

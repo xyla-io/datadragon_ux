@@ -1,0 +1,36 @@
+<div class="example-container mat-elevation-z0" style="max-width: 1200px">
+  <div [hidden]="!history.length">
+    <mat-table #table [dataSource]="this">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Creation Date Column -->
+      <ng-container matColumnDef="historyCreationDate">
+        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+        <mat-cell *matCellDef="let history"> {{history.historyCreationDate | date:'short'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="lastDataCheckedDate">
+        <mat-header-cell *matHeaderCellDef> Based on Data from ↓ </mat-header-cell>
+        <mat-cell *matCellDef="let history"> {{history.lastDataCheckedDate | date:'short'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef> Details </mat-header-cell>
+        <mat-cell *matCellDef="let history" [matTooltip]="historyDetail(history)"><span [innerHTML]="history | ruleHistoryDescription"></span> </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator
+                  [length]="historyData.value.length"
+                  [pageIndex]="0"
+                  [pageSize]="25"
+                  [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </div>
+  <div class="no-history" [hidden]="!!history.length">No history is available.</div>
+
+</div>

@@ -1,0 +1,16 @@
+table.report-metadata td {
+  padding: 24px;
+}
+
+table.report-metadata td.report-progress {
+  width: 360px;
+}
+
+table.report-metadata td.report-root-term {
+  font-weight: bold;
+  font-size: 21px;
+}
+
+table.report-metadata td.result-filter-header {
+  width: 360px;
+}

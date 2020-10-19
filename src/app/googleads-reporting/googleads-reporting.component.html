@@ -1,0 +1,9 @@
+<mat-card>
+  <app-edit-googleads-reporting (reportParametersEmitter)="onReportParametersEmitted($event)">
+  </app-edit-googleads-reporting>
+</mat-card>
+<div [(hidden)]="!showProgressBar">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+<app-googleads-reporting-results *ngFor="let reportData of reportDataArray" [report]="reportData">
+</app-googleads-reporting-results>

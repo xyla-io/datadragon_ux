@@ -1,0 +1,12 @@
+table.report-metadata td {
+  padding-left: 24px;
+}
+
+table.report-metadata td.result-filter-header {
+  width: 360px;
+}
+
+.report-parameters {
+  color: rgba(0,0,0,0.54);
+  font-size: 12px;
+}

@@ -1,0 +1,18 @@
+table td {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.report-name {
+  font-weight: bold;
+}
+
+.rows {
+  margin: 24px;
+}
+
+.rows textarea {
+  width: 100%;
+  resize: none;
+  height: 240px;
+}

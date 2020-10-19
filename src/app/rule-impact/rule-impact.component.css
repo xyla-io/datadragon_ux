@@ -1,0 +1,74 @@
+.spinner {
+  width: 32px;
+  height: 62px;
+}
+
+.rule-metadata table {
+  vertical-align: top;
+}
+
+.rule-metadata table td p {
+  color: rgba(0,0,0,0.54);
+  margin-bottom: 24px;
+}
+
+.impact table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+}
+
+.impact table td {
+  padding-top: 3px;
+}
+
+.before {
+  text-align: right;
+  padding-left: 18px;
+  padding-right: 6px;
+  border-right: solid;
+  border-right-width: thin;
+  border-right-color: #aaaaaa;
+}
+
+.after {
+  text-align: left;
+  padding-right: 18px;
+  padding-left: 6px;
+  border-left: solid;
+  border-left-width: thin;
+  border-left-color: #aaaaaa;
+}
+
+.delta {
+  text-align: center;
+}
+
+.positive {
+  color: green;
+}
+
+.negative {
+  color: red;
+}
+
+.download {
+  padding-top: 48px;
+  text-align: center;
+}
+
+.no-data {
+  margin-bottom: 24px;
+}
+
+.report-title {
+  text-align: right;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.54);
+}
+
+.graph {
+  width: 480px;
+  height: 300px;
+  margin-top: 24px;
+}
